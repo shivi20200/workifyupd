@@ -1,0 +1,91 @@
+<div class="container-fluid pt-3">
+    <div class="row">
+        <!-- Left Sidebar for Filters -->
+        <div class="col-3 filter">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="text-center">All Filter</h6>
+                </div>
+            </div>
+        </div>
+
+        <!-- Center Column for Job Listings -->
+        <div class="col-6 job">
+            <div class="row pt-2" *ngFor="let job of jobList">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body" style="background-color: #f9f9f9; border-left: 3px solid #007bffae;">
+                            <!-- Job Header -->
+                            <div class="row" (click)="openJob(job.jobId)">
+                                <div class="col-12">
+                                    <h5 style="margin-bottom: 0; font-weight: bold; font-size: 1.25rem; color: #333;">
+                                        {{ job.title }}
+                                    </h5>
+                                    <small style="color: #555;">{{ job.industry }}</small>
+                                </div>
+                            </div>
+
+                            <!-- Job Details -->
+                            <div class="row pt-2">
+                                <div class="col-4">
+                                    <i class="fa fa-briefcase" aria-hidden="true"></i> {{ job.jobType }}
+                                </div>
+                                <div class="col-4">
+                                    <i class="fa fa-inr" aria-hidden="true"></i> ₹{{ job.salary }}
+                                </div>
+                                <div class="col-4">
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i> {{ job.location }}
+                                </div>
+                            </div>
+
+                            <!-- Job Description -->
+                            <div class="row pt-2">
+                                <div class="col-12">
+                                    <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                                    <span class="text-muted">
+                                        {{ job.description | slice: 0:50 }}...
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Job Qualifications -->
+                            <div class="row pt-2">
+                                <div class="col-12">
+                                    <strong>Qualifications:</strong>
+                                    <span>{{ job.qualifications }}</span>
+                                </div>
+                            </div>
+
+                            <!-- Job Required Skills -->
+                            <div class="row pt-2">
+                                <div class="col-12">
+                                    <strong>Required Skills:</strong>
+                                    <span>{{ job.requiredSkills }}</span>
+                                </div>
+                            </div>
+
+                            <!-- Footer Row -->
+                            <div class="row pt-3">
+                                <div class="col-6">
+                                    <small style="color: #888;">Posted a Few Hours Ago</small>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <i class="fa fa-bookmark" aria-hidden="true" style="color: #2a17575f;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Sidebar for Top Companies -->
+        <div class="col-3 filter">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="text-center">Top Companies Hiring</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,215 @@
+
+<div class="container">
+  <h2>Create New Job</h2>
+
+  <!-- New Company Button -->
+  <button class="btn btn-primary" (click)="toggleCompanyForm()">New Company</button>
+
+  <!-- Create New Company Form -->
+  <div *ngIf="showCompanyForm">
+    <h3>Create New Company</h3>
+    <form (ngSubmit)="submitNewCompany()">
+      <div class="form-group">
+        <label for="companyName">Company Name</label>
+        <input
+          id="companyName"
+          [(ngModel)]="newCompany.companyName"
+          name="companyName"
+          maxlength="100"
+          required
+          class="form-control"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="address">Address</label>
+        <input
+          id="address"
+          [(ngModel)]="newCompany.address"
+          name="address"
+          maxlength="200"
+          required
+          class="form-control"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          [(ngModel)]="newCompany.description"
+          name="description"
+          maxlength="500"
+          class="form-control"
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="website">Website</label>
+        <input
+          id="website"
+          [(ngModel)]="newCompany.website"
+          name="website"
+          pattern="https?://.*"
+          class="form-control"
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary">Create New Company</button>
+    </form>
+  </div>
+
+  <hr />
+
+
+
+  <!-- Select Company -->
+  <div class="form-group">
+    <label for="company">Select Company:</label>
+    <select
+      id="company"
+      [(ngModel)]="selectedCompanyId"
+      class="form-control"
+      (ngModelChange)="fetchEmployers()"
+    >
+      <option value="0" disabled>Select a company</option>
+      <option *ngFor="let company of companies" [value]="company.companyId">
+        {{ company.companyName }}
+      </option>
+    </select>
+  </div>
+
+  <!-- Select Employer -->
+  <div class="form-group">
+    <label for="employer">Select Employer:</label>
+    <select
+      id="employer"
+      [(ngModel)]="selectedEmployerId"
+      class="form-control"
+      [disabled]="!filteredEmployers || filteredEmployers.length === 0"
+    >
+      <option value="0" disabled>Select an employer</option>
+      <option *ngFor="let employer of filteredEmployers" [value]="employer.employerId">
+        Employer #{{ employer.employerId }} (User Email: {{ employer.userEmail }})
+      </option>
+    </select>
+  </div>
+
+  <!-- Create New Employer -->
+  <button
+    class="btn btn-primary"
+    [disabled]="selectedCompanyId === 0 || isLoggedIn === false"
+    (click)="createEmployer()"
+  >
+    Create New Employer
+  </button>
+
+  <hr />
+
+  <!-- Job Form -->
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="title">Job Title:</label>
+      <input
+        id="title"
+        type="text"
+        [(ngModel)]="job.title"
+        name="title"
+        class="form-control"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="description">Job Description:</label>
+      <textarea
+        id="description"
+        [(ngModel)]="job.description"
+        name="description"
+        class="form-control"
+        rows="4"
+        required
+      ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="qualifications">Qualifications:</label>
+      <input
+        id="qualifications"
+        type="text"
+        [(ngModel)]="job.qualifications"
+        name="qualifications"
+        class="form-control"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="salary">Salary:</label>
+      <input
+        id="salary"
+        type="number"
+        [(ngModel)]="job.salary"
+        name="salary"
+        class="form-control"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="jobType">Job Type:</label>
+      <select
+        id="jobType"
+        [(ngModel)]="job.jobType"
+        name="jobType"
+        class="form-control"
+        required
+      >
+        <option value="Full-Time">Full-Time</option>
+        <option value="Part-Time">Part-Time</option>
+        <option value="Contract">Contract</option>
+        <option value="Freelance">Freelance</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="requiredSkills">Required Skills:</label>
+      <input
+        id="requiredSkills"
+        type="text"
+        [(ngModel)]="job.requiredSkills"
+        name="requiredSkills"
+        class="form-control"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="location">Location:</label>
+      <input
+        id="location"
+        type="text"
+        [(ngModel)]="job.location"
+        name="location"
+        class="form-control"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="industry">Industry:</label>
+      <input
+        id="industry"
+        type="text"
+        [(ngModel)]="job.industry"
+        name="industry"
+        class="form-control"
+      />
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-success"
+      [disabled]="!selectedEmployerId"
+    >
+      Create Job
+    </button>
+  </form>
+</div>
